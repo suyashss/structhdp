@@ -1,0 +1,70 @@
+structHDP is a software program for population genetic analysis. 
+
+You can compile structHDP from source by using the provided makefile, by executing
+ the command "make". The compilation requires the g++ compiler and the GNU Scientific
+library (GSL), which can be found at http://www.gnu.org/software/gsl/ .
+
+Important instructions:
+1. Please read the usage instructions below for some initial setup before you can run the program.
+2. Since structHDP uses a Gibbs sampling algorithm, it can be slow on large datasets. We highly recommend thinning your
+dataset to less than a few thousand loci.
+3. We also recommend running the program multiple times with random starts to ensure that the results you get from a single
+run are not due to a local optimum. If you observe local optima, you can increase the number of iterations of the Gibbs sampler. A good diagnostic for convergence is also to see whether the likelihood is still improving.
+4. The current implementation of the program has limited error-checking for the inputs and the program may not always fail 
+gracefully in case of errors.
+
+=========================================================================
+Usage instructions:
+
+Usage: structhdp requires the following parameters in any order:
+-d <datafile>
+-o <output-directory>
+-n <number of individuals>
+-m <number of loci>
+-p <ploidy>
+-g <other-settings-file>
+You can provide a random seed (optional) with "-r <integer seed>" 
+
+<datafile> is a file containing the genotype data. Its format is the same as that for the STRUCTURE program,
+with P(=Ploidy) lines per individual, and M loci per line. Missing values can be represented using negative 
+numbers. A file with N individuals should therefore have N*P lines.
+
+An example file with 2 individuals of ploidy 2 and 3 loci would look like
+===============================
+12 20 5
+11 21 -9
+11 22 4
+11 21 3
+=============================
+
+<output-directory> is the directory in which the output files are stored. This directo
+ry must be present for the output to be saved. For compatibility with different operating systems, structHDP
+does not create the output directory itself. THE USER MUST CREATE THIS DIRECTORY.
+
+<other-settings-file> is a file containing some parameters that are useful for tuning the performance of the
+Gibbs sampler in structHDP. A typical settings file is included with the code as "settings.txt". The parameters in the file are described below with their default values in parentheses.
+MAX_GIBBS_ITER (10000) - The number of iterations for the Gibbs sampler. It is recommended that these be at least 10000 for convergence.
+BURNIN  (5000) - The initial number of iterations to be ignored before sampling from the posterior distribution. This can be set to 0.5*MAX_GIBBS_ITER.
+INTERVAL  (50) - After the burnin, the number of populations (K) is sampled every INTERVAL iterations of the Gibbs sampler to avoid 
+autocorrelation between samples
+ALPHA_A (1.0) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
+ALPHA_B (1.0) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
+GAMMA_A (1.0) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
+GAMMA_B (1.0) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
+H       (0.5) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
+STIRLINGFILE    (/home/suyash/structhdp/logstirling_500.txt) - A file containing precomputed values of stirling numbers which are used in the Gibbs sampler. IT IS ESSENTIAL TO SET THIS FILE VARIABLE FOR THE ALGORITHM TO RUN CORRECTLY. WE RECOMMEND SPECIFYING THIS WITH AN ABSOLUTE PATH RATHER THAN A RELATIVE PATH SO YOU CAN RUN THE PROGRAM FROM ANY DIRECTORY.
+
+To run the thrush.stru example file included with the code, you can use the following command:
+
+./structhdp -d thrush.stru -o output -n 155 -m 7 -p 2 -g settings.txt
+
+===============================================================================
+
+Output files
+
+1. state.log - The state of the Gibbs sampler. The output format is - iter num.topics likelihood alpha gamma
+2. klog.txt - The samples of K (the number of populations), taken every INTERVAL iterations after BURNIN.
+3. proportions.txt - The ancestry proportions of the individuals estimated at the end of the Gibbs sampler run. 
+It has one line per individual, with the entries on a single line summing up to 1.
+
+
