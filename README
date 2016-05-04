@@ -67,4 +67,9 @@ Output files
 3. proportions.txt - The ancestry proportions of the individuals estimated at the end of the Gibbs sampler run. 
 It has one line per individual, with the entries on a single line summing up to 1.
 
+================================================================================
 
+Generating a STIRLINGFILE
+
+The default STIRLINGFILE (logstirling_500.txt) can handle datasets with nloci*ploidy at most 500. For larger datasets, larger STIRLINGFILEs must be generated. The R file "write_stirling.r" can be used to generate these files.
+A command line invocation as "Rscript write_stirling.r <n>" generates a file named "logstirling_<n>.txt" that can be used as a STIRLINGFILE. 
