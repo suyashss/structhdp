@@ -52,14 +52,18 @@ model* initialise_model(int*** data,int nloci,int npops,int ploidy,int ninds){
 	m->h=H;//0.5;
 	stringstream ss;
 	cout<<"Stirlingfile is "<<STIRLINGFILE<<endl;
+	cout<<"Stirling size is "<<STIRLING_SIZE<<endl;
 	ifstream ifile;
 	double temp;
 	ifile.open(STIRLINGFILE.c_str());
-	for(int i=0;i<STIRLING_SIZE;i++)
+	m->stirlingmatrix=new double*[STIRLING_SIZE];
+	for(int i=0;i<STIRLING_SIZE;i++){
+		m->stirlingmatrix[i]=new double[STIRLING_SIZE];
 		for(int j=0;j<STIRLING_SIZE;j++){
 			ifile>>temp;
 			m->stirlingmatrix[i][j]=temp;
 		}
+	}
 	cout<<"Read stirling matrix\n";
 	ifile.close();
 #ifdef DEBUG

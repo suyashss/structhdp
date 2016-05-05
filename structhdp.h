@@ -42,7 +42,7 @@ struct model{
 	double gamma,alpha,h;
 	int* numcentroids; //dim = nloci
 	map<int,int>* uniqalleles; //stores unique alleles at each locus to reduce computation
-	double stirlingmatrix[STIRLING_SIZE][STIRLING_SIZE];
+	double** stirlingmatrix;
 };
 
 struct satellite{
