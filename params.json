@@ -1,0 +1,6 @@
+{
+  "name": "StructHDP",
+  "tagline": "StructHDP program from Shringarpure et al. (2011) \"StructHDP: automatic inference of number of clusters and population structure from admixed genotype data\" ",
+  "body": "### About\r\nStructHDP is a program for automatically inferring the population structure and number of clusters from a sample of admixed genotype data. It extends the model used by Structure to allow for a potentially infinite number of populations and then chooses the number of populations that best explain the data.\r\n\r\n### Version History\r\n1.1 Added support for generating Stirling numbers for larger datasets.\r\n\r\n1.0 Intial public release.\r\n\r\n### Publications\r\n[StructHDP: automatic inference of number of clusters and population structure from admixed genotype data](http://bioinformatics.oxfordjournals.org/content/27/13/i324.abstract)\r\nSuyash Shringarpure, Daegun Won, Eric P. Xing\r\nBioinformatics 2011 27: i324-i332\r\n\r\n### Contact\r\nPlease contact Suyash Shringarpure (suyashs@stanford.edu) for any questions about the program\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
