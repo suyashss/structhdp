@@ -38,21 +38,21 @@ An example file with 2 individuals of ploidy 2 and 3 loci would look like
 =============================
 
 <output-directory> is the directory in which the output files are stored. This directo
-ry must be present for the output to be saved. For compatibility with different operating systems, structHDP
-does not create the output directory itself. THE USER MUST CREATE THIS DIRECTORY.
+ry must be present for the output to be saved. For compatibility with different operating systems, structHDP does not create the output directory itself. THE USER MUST CREATE THIS DIRECTORY.
 
 <other-settings-file> is a file containing some parameters that are useful for tuning the performance of the
 Gibbs sampler in structHDP. A typical settings file is included with the code as "settings.txt". The parameters in the file are described below with their default values in parentheses.
-MAX_GIBBS_ITER (10000) - The number of iterations for the Gibbs sampler. It is recommended that these be at least 10000 for convergence.
-BURNIN  (5000) - The initial number of iterations to be ignored before sampling from the posterior distribution. This can be set to 0.5*MAX_GIBBS_ITER.
-INTERVAL  (50) - After the burnin, the number of populations (K) is sampled every INTERVAL iterations of the Gibbs sampler to avoid 
+* MAX_GIBBS_ITER (10000) - The number of iterations for the Gibbs sampler. It is recommended that these be at least 10000 for convergence.
+* BURNIN  (5000) - The initial number of iterations to be ignored before sampling from the posterior distribution. This can be set to 0.5*MAX_GIBBS_ITER.
+* INTERVAL  (50) - After the burnin, the number of populations (K) is sampled every INTERVAL iterations of the Gibbs sampler to avoid 
 autocorrelation between samples
-ALPHA_A (1.0) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
-ALPHA_B (1.0) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
-GAMMA_A (1.0) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
-GAMMA_B (1.0) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
+* ALPHA_A (1.0) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
+* ALPHA_B (1.0) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
+* GAMMA_A (1.0) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
+*GAMMA_B (1.0) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
 H       (0.5) - A distribution parameter for the Gibbs sampler, we recommend not changing it.
-STIRLINGFILE    (/home/suyash/structhdp/logstirling_500.txt) - A file containing precomputed values of stirling numbers which are used in the Gibbs sampler. IT IS ESSENTIAL TO SET THIS FILE VARIABLE FOR THE ALGORITHM TO RUN CORRECTLY. WE RECOMMEND SPECIFYING THIS WITH AN ABSOLUTE PATH RATHER THAN A RELATIVE PATH SO YOU CAN RUN THE PROGRAM FROM ANY DIRECTORY.
+* STIRLINGFILE    (/home/suyash/structhdp/logstirling_500.txt) - A file containing precomputed values of stirling numbers which are used in the Gibbs sampler. IT IS ESSENTIAL TO SET THIS FILE VARIABLE FOR THE ALGORITHM TO RUN CORRECTLY. WE RECOMMEND SPECIFYING THIS WITH AN ABSOLUTE PATH RATHER THAN A RELATIVE PATH SO YOU CAN RUN THE PROGRAM FROM ANY DIRECTORY.
+* STIRLING_SIZE (500) - The size of the square matrix of stirling numbers. IT IS ESSENTIAL TO SET THIS FILE VARIABLE FOR THE ALGORITHM TO RUN CORRECTLY. If the STIRLINGFILE you use is logstirling_<n>.txt, you should set STIRLING_SIZE to <n>   
 
 To run the thrush.stru example file included with the code, you can use the following command:
 
