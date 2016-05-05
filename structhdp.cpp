@@ -526,6 +526,10 @@ void readsettings(string filename){
 			settingsfile>>settingvalues;
 			STIRLINGFILE=settingvalues;
 		}
+		else if(settingname.compare("STIRLING_SIZE")==0){
+			settingsfile>>settingvaluei;
+			STIRLING_SIZE=settingvaluei;
+		}
 		else{
 			cout<<"Unknown setting "<<settingname;
 			exit(1);
