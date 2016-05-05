@@ -4,6 +4,8 @@ You can compile structHDP from source by using the provided makefile, by executi
  the command "make". The compilation requires the g++ compiler and the GNU Scientific
 library (GSL), which can be found at http://www.gnu.org/software/gsl/ .
 
+You can test the generated executable by executing the command "make test".
+
 Important instructions:
 1. Please read the usage instructions below for some initial setup before you can run the program.
 2. Since structHDP uses a Gibbs sampling algorithm, it can be slow on large datasets. We highly recommend thinning your dataset to less than a few thousand loci.
