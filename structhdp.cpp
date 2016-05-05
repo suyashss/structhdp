@@ -240,7 +240,7 @@ void samplehyperparams(satellite* info,model* m,int*** data){
 	int n = info->mdotdot;
 	double rate, sum_log_w, sum_s;
 
-	for (int step = 0; step < 30; step++)
+	for (int step = 0; step < 100; step++)
 	{
 		sum_log_w = 0.0;
 		sum_s = 0.0;
