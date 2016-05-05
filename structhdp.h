@@ -20,11 +20,11 @@ const int MAX_ITER=100;
 const double THRESH=1e-5;
 const int INIT_NUM_TOPICS=1;
 int PRINTCT=0,SATPRINTCT=0;
-int MAX_GIBBS_ITER, BURNIN, INTERVAL;
+int MAX_GIBBS_ITER, BURNIN, INTERVAL,STIRLING_SIZE;
 float GAMMA_A,GAMMA_B,ALPHA_A,ALPHA_B,H;
 #define DEBUG 1
 //#define DEBUG_0 1
-const int MAXALLELES=30,MAXK=100,STIRLING_SIZE=500;
+const int MAXALLELES=30,MAXK=100;
 string STIRLINGFILE;
 int NUMINDS,NUMLOCI,PLOIDY;
 long SEED;
@@ -42,7 +42,7 @@ struct model{
 	double gamma,alpha,h;
 	int* numcentroids; //dim = nloci
 	map<int,int>* uniqalleles; //stores unique alleles at each locus to reduce computation
-	double stirlingmatrix[STIRLING_SIZE][STIRLING_SIZE];
+	double** stirlingmatrix;
 };
 
 struct satellite{
