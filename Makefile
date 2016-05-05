@@ -15,7 +15,10 @@ structhdp: $(LSOURCE) $(HEADER)
 	#$(CC) -L$(GSL_LIB) $(LSOURCE) -o $@ $(LDFLAGS)
 	$(CC) $(CFLAGS) -c utils.cpp
 	$(CC) $(CFLAGS) -c structhdp.cpp
-	$(CC) -o $@ -L$(GSL_LIB) structhdp.o utils.o  $(LDFLAGS) 
+	$(CC) -g -o $@ -L$(GSL_LIB) structhdp.o utils.o  $(LDFLAGS) 
 
 clean:
 	rm -f *.o structhdp
+
+test:
+	python tests/cram-0.4/cram.py -q tests/tiny.t
