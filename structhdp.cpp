@@ -547,12 +547,6 @@ void learnmodel(string filename){
 #ifdef DEBUG
 	cout<<"Read file\n";
 #endif
-	if(d->nloci*d->ploidy > STIRLING_SIZE){
-		clearmatrix(d);
-		cout<<"Error: STIRLING_SIZE ("<<STIRLING_SIZE<<") is less than Nloci*Ploidy ("<<d->nloci<<"*"<<d->ploidy<<"="<<d->nloci*d->ploidy<<")- the program will fail\n";
-		cout<<"Please use the write_stirling.r to generate a larger STIRLINGFILE. See README for more detailed instructions.\n";	
-		exit(1);	
-	}
 
 	model* currmodel=initialise_model(d->data,d->nloci,INIT_NUM_TOPICS,d->ploidy,d->ninds);
 #ifdef DEBUG
