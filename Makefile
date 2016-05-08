@@ -22,3 +22,4 @@ clean:
 
 test:
 	python tests/cram-0.4/cram.py -q tests/tiny.t
+	python tests/cram-0.4/cram.py -q tests/stirling.t
