@@ -558,13 +558,13 @@ void learnmodel(string filename){
 	cout<<fixed;
 
 	ofstream stateout;
-	stateout.open((OUTDIR+"/state.log").c_str());
+	stateout.open((OUTPUT_PREFIX+".state.log").c_str());
 	stateout<<"iter num.topics likelihood alpha gamma\n";
 
 	double ksum=0.0;
 	double knum=0;
 	ofstream kout;
-	kout.open((OUTDIR+"/klog.txt").c_str());
+	kout.open((OUTPUT_PREFIX+".klog.txt").c_str());
 	for(int iter=1;iter<=MAX_GIBBS_ITER;iter++){
 		samplez(info,currmodel,d->data);
 		samplem(info,currmodel,d->data);
@@ -590,7 +590,7 @@ void learnmodel(string filename){
 	cout<<"Printing final ancestry proportions\n";
 
 	ofstream propout;
-	propout.open((OUTDIR+"/proportions.txt").c_str());
+	propout.open((OUTPUT_PREFIX+".proportions.txt").c_str());
 
 	double propsum=0;
 	for(int i=0;i<info->ninds;i++){
@@ -633,6 +633,8 @@ void readopts(int len,char* arr[]){
         int count=1,len1;
         string temp;
         int dgiven=-1,ngiven=-1,ogiven=-1,pgiven=-1,rgiven=-1,ggiven=-1,kgiven=-1,mgiven=-1;
+	SEED=1;
+	OUTPUT_PREFIX="structhdp";
         while(count!=len){
                 temp=string(arr[count]);
                 len1=temp.size();
@@ -645,14 +647,14 @@ void readopts(int len,char* arr[]){
                 switch (arr[count][1]) {
                         case 'h':
                                 //help option
-                                cout<<"Usage: structhdp requires the following parameters in any order:\n";
-                                cout<<"-d <datafile>\n";
-                                cout<<"-o <output-directory>\n";
+                                cout<<"Usage: structhdp uses the following input parameters in any order:\n";
+                                cout<<"-d <datafile> \n";
                                 cout<<"-n <number of individuals>\n";
                                 cout<<"-m <number of loci>\n";
                                 cout<<"-p <ploidy>\n";
                                 cout<<"-g <other-settings-file>\n";
-                                cout<<"You can provide a random seed (optional) with \"-r <integer seed>\" \n";
+                                cout<<"-o <output-prefix> (optional, default='structhdp')\n";
+				cout<<"-r <random seed> (optional, default=1)\n";
                                 exit(0);
                         case 'd':
                                 // Data file
@@ -660,7 +662,7 @@ void readopts(int len,char* arr[]){
                                 break;
                         case 'o':
                                 //Output directory
-                                OUTDIR=string(arr[count+1]); ogiven=1;
+                                OUTPUT_PREFIX=string(arr[count+1]); ogiven=1;
                                 break;
                         case 'n':
                                 // No. of individuals
@@ -694,17 +696,15 @@ void readopts(int len,char* arr[]){
         verifyoption(mgiven,"Number of loci","-m");
         verifyoption(pgiven,"Ploidy","-p");
         verifyoption(ggiven,"Other parameter file","-g");
-        verifyoption(ogiven,"Output directory","-o");
         if(rgiven==-1)
                 cout<<"No seed provided, using default value: "<<SEED<<endl;
+        if(ogiven==-1)
+                cout<<"No output prefix provided, using default value: "<<OUTPUT_PREFIX<<endl;
 }
 
 
 
 int main(int argc,char** argv){
-	time_t t;
-	time(&t);
-	SEED=(long)t;
 	readopts(argc,argv);
 	RANDOM_NUMBER = gsl_rng_alloc(gsl_rng_taus);
     	gsl_rng_set(RANDOM_NUMBER, (long) SEED); // init the seed

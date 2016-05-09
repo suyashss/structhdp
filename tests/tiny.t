@@ -6,14 +6,14 @@ These are some simple tests using the example dataset.
 
 Basic invocation of help:
   $ $STRUCTHDP -h
-  Usage: structhdp requires the following parameters in any order:
-  -d <datafile>
-  -o <output-directory>
+  Usage: structhdp uses the following input parameters in any order:
+  -d <datafile> 
   -n <number of individuals>
   -m <number of loci>
   -p <ploidy>
   -g <other-settings-file>
-  You can provide a random seed (optional) with "-r <integer seed>" 
+  -o <output-prefix> (optional, default='structhdp')
+  -r <random seed> (optional, default=1)
 
 Normal command termination:
   $ $STRUCTHDP -d $DATA/tiny.stru -o output -n 20 -m 7 -p 2 -g $TESTDIR/../settings.txt -r 1 > /dev/null
