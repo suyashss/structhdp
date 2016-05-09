@@ -29,6 +29,7 @@ string STIRLINGFILE;
 int NUMINDS,NUMLOCI,PLOIDY;
 long SEED;
 string DATAFILE,OTHERPARAMS;
+string OUTPUT_PREFIX;
 
 struct datamatrix{
 	int ***data,***datacopy; //data will be destructively overwritten using the uniqalleles map for ease of access
@@ -61,7 +62,6 @@ struct satellite{
 	vector<double> betas;
 };
 
-string OUTDIR;
 
 //data is ninds*nloci*ploidy
 //double log1p(double);
