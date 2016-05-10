@@ -55,7 +55,7 @@ void readopts(int len,char* arr[]){
                                 DATAFILE=string(arr[count+1]); dgiven=1;
                                 break;
                         case 'o':
-                                //Output directory
+                                //Output prefix
                                 OUTPUT_PREFIX=string(arr[count+1]); ogiven=1;
                                 break;
                         case 'n':
