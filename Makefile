@@ -1,25 +1,48 @@
-CC = g++
+LINK = g++
+CXX = g++
 #CFLAGS = -g -Wall -O3 -ffast-math -DHAVE_INLINE -DGSL_RANGE_CHECK_OFF
-# CFLAGS = -g -Wall
-LDFLAGS = -lgsl -lgslcblas -lm
 
-#GSL_INCLUDE = /usr/include/
 GSL_LIB = /usr/lib/
 
-LSOURCE =  utils.cpp structhdp.cpp
-LHEADER =  utils.h structhdp.h
+SRCDIR := src
+OBJDIR := obj
+VPATH := $(SRCDIR)
 
-structhdp: $(LSOURCE) $(HEADER)
-	#$(CC) $(LSOURCE) -o $@ $(LDFLAGS)
-	#$(CC)  -I$(GSL_INCLUDE) -L$(GSL_LIB) $(LSOURCE) -o $@ $(LDFLAGS)
-	#$(CC) -L$(GSL_LIB) $(LSOURCE) -o $@ $(LDFLAGS)
-	$(CC) $(CFLAGS) -c utils.cpp
-	$(CC) $(CFLAGS) -c structhdp.cpp
-	$(CC) -g -o $@ -L$(GSL_LIB) structhdp.o utils.o  $(LDFLAGS) 
+CXXFLAGS := ${CXXFLAGS} ${DEBUGFLAGS} ${OPTFLAGS} ${INCLUDEPATHS}
 
-clean:
-	rm -f *.o structhdp
+TARGET := structhdp
+CXXSRCS := utils.cpp structhdp.cpp
+
+CXXOBJS := ${addprefix ${OBJDIR}/, ${CXXSRCS:.cpp=.o}}
+
+LIBS := -lgsl -lgslcblas -lm ${LIBS}
+
+optimized:
+	$(MAKE) $(TARGET) OPTFLAGS="-O3 -DNDEBUG -ffast-math -DHAVE_INLINE -DGSL_RANGE_CHECK_OFF" DEBUGFLAGS=""
+debug:
+	$(MAKE) $(TARGET) OPTFLAGS="-O0" DEBUGFLAGS="-g"
+fastdebug:
+	$(MAKE) $(TARGET) OPTFLAGS="-O3" DEBUGFLAGS="-g -DBOOST_UBLAS_NDEBUG"
+
+${TARGET}: ${OBJDIR} ${CXXOBJS}
+	${LINK} ${LINKFLAGS} -o ${TARGET} ${CXXOBJS} ${LIBPATHS} ${LIBS}
+
+${OBJDIR}:
+	mkdir -p ${OBJDIR}
+
+${CXXOBJS}: $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+	 ${CXX} ${CXXFLAGS} -o $@ -c $<
+
+clean: 
+	-rm -f structhdp
+	-rm -f ${OBJDIR}/*.o  ${OBJDIR}/*.mod  
+doc:
+	cd doc; make
 
 test:
 	python tests/cram-0.4/cram.py -q tests/tiny.t
 	python tests/cram-0.4/cram.py -q tests/stirling.t
+
+
+.PHONY: clean optimized debug fastdebug doc test
+
