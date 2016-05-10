@@ -14,22 +14,14 @@
 
 using namespace std;
 
-const int INIT_ALLOCATED_POPS=100;
-const int MAX_CENTROIDS=20;
-const int MAX_ITER=100;
-const double THRESH=1e-5;
-const int INIT_NUM_TOPICS=1;
-int PRINTCT=0,SATPRINTCT=0;
-int MAX_GIBBS_ITER, BURNIN, INTERVAL,STIRLING_SIZE;
-float GAMMA_A,GAMMA_B,ALPHA_A,ALPHA_B,H;
+extern const int INIT_ALLOCATED_POPS, MAX_CENTROIDS, MAX_ITER, INIT_NUM_TOPICS, MAXALLELES, MAXK;
+extern const double THRESH;
+extern int PRINTCT,SATPRINTCT, MAX_GIBBS_ITER, BURNIN, INTERVAL,STIRLING_SIZE, NUMINDS, NUMLOCI, PLOIDY;
+extern float GAMMA_A,GAMMA_B,ALPHA_A,ALPHA_B,H;
 #define DEBUG 1
 //#define DEBUG_0 1
-const int MAXALLELES=30,MAXK=100;
-string STIRLINGFILE;
-int NUMINDS,NUMLOCI,PLOIDY;
-long SEED;
-string DATAFILE,OTHERPARAMS;
-string OUTPUT_PREFIX;
+extern long SEED;
+extern string DATAFILE,OTHERPARAMS,OUTPUT_PREFIX,STIRLINGFILE;
 
 struct datamatrix{
 	int ***data,***datacopy; //data will be destructively overwritten using the uniqalleles map for ease of access

@@ -11,7 +11,7 @@ VPATH := $(SRCDIR)
 CXXFLAGS := ${CXXFLAGS} ${DEBUGFLAGS} ${OPTFLAGS} ${INCLUDEPATHS}
 
 TARGET := structhdp
-CXXSRCS := utils.cpp structhdp.cpp
+CXXSRCS := utils.cpp structhdp.cpp options.cpp
 
 CXXOBJS := ${addprefix ${OBJDIR}/, ${CXXSRCS:.cpp=.o}}
 
