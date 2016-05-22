@@ -22,6 +22,8 @@ extern float GAMMA_A,GAMMA_B,ALPHA_A,ALPHA_B,H;
 //#define DEBUG_0 1
 extern long SEED;
 extern string DATAFILE,OTHERPARAMS,OUTPUT_PREFIX,STIRLINGFILE;
+extern map<string, int> gibbs_sampling_params;
+extern map<string, float> gibbs_probability_params;
 
 struct datamatrix{
 	int ***data,***datacopy; //data will be destructively overwritten using the uniqalleles map for ease of access

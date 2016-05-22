@@ -18,6 +18,8 @@ const int MAXALLELES=30,MAXK=100;
 int NUMINDS,NUMLOCI,PLOIDY;
 long SEED;
 string DATAFILE,OTHERPARAMS,OUTPUT_PREFIX,STIRLINGFILE;
+map<string, int> gibbs_sampling_params;
+map<string, float> gibbs_probability_params;
 
 model* initialise_model(int*** data,int nloci,int npops,int ploidy,int ninds){
 	model* m=new model();
@@ -496,63 +498,6 @@ void compact_state(satellite* info,model* m){
 	delete k_to_new_k;
 }
 
-void readsettings(string filename){
-	ifstream settingsfile;
-	cout<<"Settings filename is "<<filename<<endl;
-	settingsfile.open(filename.c_str());
-	string settingname,settingvalues;
-	float settingvaluef;
-	int settingvaluei;
-	while(!settingsfile.eof()){
-		settingsfile>>settingname;
-		if(settingname.compare("MAX_GIBBS_ITER")==0){
-			settingsfile>>settingvaluei;
-			MAX_GIBBS_ITER=settingvaluei;
-		}
-		else if(settingname.compare("BURNIN")==0){
-			settingsfile>>settingvaluei;
-			BURNIN=settingvaluei;
-		}
-		else if(settingname.compare("INTERVAL")==0){
-			settingsfile>>settingvaluei;
-			INTERVAL=settingvaluei;
-		}
-		else if(settingname.compare("ALPHA_A")==0){
-			settingsfile>>settingvaluef;
-			ALPHA_A=settingvaluef;
-		}
-		else if(settingname.compare("ALPHA_B")==0){
-			settingsfile>>settingvaluef;
-			ALPHA_B=settingvaluef;
-		}
-		else if(settingname.compare("GAMMA_A")==0){
-			settingsfile>>settingvaluef;
-			GAMMA_A=settingvaluef;
-		}
-		else if(settingname.compare("GAMMA_B")==0){
-			settingsfile>>settingvaluef;
-			GAMMA_B=settingvaluef;
-		}
-		else if(settingname.compare("H")==0){
-			settingsfile>>settingvaluef;
-			H=settingvaluef;
-		}
-		else if(settingname.compare("STIRLINGFILE")==0){
-			settingsfile>>settingvalues;
-			STIRLINGFILE=settingvalues;
-		}
-		else if(settingname.compare("STIRLING_SIZE")==0){
-			settingsfile>>settingvaluei;
-			STIRLING_SIZE=settingvaluei;
-		}
-		else{
-			cout<<"Unknown setting "<<settingname;
-			exit(1);
-		}
-			
-	}
-	settingsfile.close();
-}
 
 void learnmodel(string filename){
 #ifdef DEBUG
@@ -633,10 +578,12 @@ void learnmodel(string filename){
 
 
 int main(int argc,char** argv){
+	initialize_param_maps();
 	readopts(argc,argv);
+	set_param_values();
 	RANDOM_NUMBER = gsl_rng_alloc(gsl_rng_taus);
     	gsl_rng_set(RANDOM_NUMBER, (long) SEED); // init the seed
-	readsettings(OTHERPARAMS);
+	//readsettings(OTHERPARAMS);
 	learnmodel(DATAFILE);
 	return 0;
 }
