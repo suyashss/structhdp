@@ -42,6 +42,7 @@ doc:
 test:
 	python tests/cram-0.4/cram.py -q tests/tiny.t
 	python tests/cram-0.4/cram.py -q tests/stirling.t
+	python tests/cram-0.4/cram.py -q tests/options.t
 
 
 .PHONY: clean optimized debug fastdebug doc test

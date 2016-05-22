@@ -5,6 +5,10 @@
 void set_param_values(){
 	MAX_GIBBS_ITER=gibbs_sampling_params["gibbs_max_iter"];
 	BURNIN=gibbs_sampling_params["gibbs_burnin"];
+	if(BURNIN>=MAX_GIBBS_ITER){
+		cout<<"Error: BURNIN ("<<BURNIN<<") must be smaller than MAX_GIBBS_ITER ("<<MAX_GIBBS_ITER<<")\n";
+		exit(1);
+	}
 	INTERVAL=gibbs_sampling_params["gibbs_interval"];
 	ALPHA_A=gibbs_probability_params["gibbs_alpha_a"];
 	ALPHA_B=gibbs_probability_params["gibbs_alpha_b"];
@@ -97,7 +101,7 @@ void readopts(int len,char* arr[]){
 			case 'B':
 			case 'I':
 				gibbs_sampling_params[long_options[long_index].name]=atoi(optarg);
-				cout<<"Using custom value for"<<long_options[long_index].name<<"="<<optarg<<endl;
+				cout<<"Using custom value for "<<long_options[long_index].name<<"="<<optarg<<endl;
 				break;
 			case 'W':
 			case 'X':
@@ -105,7 +109,7 @@ void readopts(int len,char* arr[]){
 			case 'Z':
 			case 'H':
 				gibbs_probability_params[long_options[long_index].name]=atof(optarg);
-				cout<<"Using custom value for"<<long_options[long_index].name<<"="<<optarg<<endl;
+				cout<<"Using custom value for "<<long_options[long_index].name<<"="<<optarg<<endl;
 				break;
                         case 'h':
                                 //help option
