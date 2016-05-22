@@ -12,16 +12,18 @@ Basic invocation of help:
   -m <number of loci>
   -p <ploidy>
   -g <other-settings-file>
+  --stirling_file <filename>
+  --stirling_size <size of stirling matrix in file>
   -o <output-prefix> (optional, default='structhdp')
   -r <random seed> (optional, default=1)
 
 Normal command termination:
-  $ $STRUCTHDP -d $DATA/tiny.stru -o output -n 20 -m 7 -p 2 -g $TESTDIR/../settings.txt -r 1 > /dev/null
+  $ $STRUCTHDP -d $DATA/tiny.stru -o output -n 20 -m 7 -p 2 -r 1 --stirling_file $TESTDIR/../logstirling_500.txt --stirling_size 500 > /dev/null
   $ echo $?
   0
 
 Expected command output:
-  $ $STRUCTHDP -d $DATA/tiny.stru -o output -n 20 -m 7 -p 2 -g $TESTDIR/../settings.txt -r 1 | tail -n 20
+  $ $STRUCTHDP -d $DATA/tiny.stru -o output -n 20 -m 7 -p 2 -r 1 --stirling_file $TESTDIR/../logstirling_500.txt --stirling_size 500  | tail -n 20
   1.0000 0.0000 0.0000 
   1.0000 0.0000 0.0000 
   1.0000 0.0000 0.0000 
@@ -31,6 +33,7 @@ Expected command output:
   1.0000 0.0000 0.0000 
   1.0000 0.0000 0.0000 
   1.0000 0.0000 0.0000 
+  0.9286 0.0000 0.0714 
   1.0000 0.0000 0.0000 
   1.0000 0.0000 0.0000 
   1.0000 0.0000 0.0000 
@@ -38,7 +41,6 @@ Expected command output:
   1.0000 0.0000 0.0000 
   1.0000 0.0000 0.0000 
   1.0000 0.0000 0.0000 
-  1.0000 0.0000 0.0000 
-  0.0000 1.0000 0.0000 
-  0.0000 1.0000 0.0000 
+  0.0714 0.0000 0.9286 
   0.0000 0.0000 1.0000 
+  0.0000 1.0000 0.0000 
